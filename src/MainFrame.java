@@ -8,9 +8,10 @@ import javax.swing.Timer;
 public class MainFrame extends Frame {
     private Button but1= new Button("ADD");
     private Button but2= new Button("SUB");
-    private Label lab1 = new Label("_(:312)_");
+    private Label lab1 = new Label("-->");
     int x = 0;int lbx=100;int lby=100;
     private Timer tim ;
+    private Timer tim2 ;
     public MainFrame(){
         initComp();
     }
@@ -30,7 +31,7 @@ public class MainFrame extends Frame {
     this.add(but2);
     lab1.setBounds(lbx,lby,80,60);
     this.add(lab1);
-        MainFrame.this.setTitle("030");
+        MainFrame.this.setTitle("TEXT");
     but1.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -42,8 +43,10 @@ public class MainFrame extends Frame {
     but2.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            lab1.setText(Integer.toString(--x));
-            MainFrame.this.setTitle(Integer.toString(x));
+//            lab1.setText(Integer.toString(--x));
+//            MainFrame.this.setTitle(Integer.toString(x));
+            tim2.start();
+
         }
     });
     tim = new Timer(20, new ActionListener() {
@@ -53,14 +56,32 @@ public class MainFrame extends Frame {
             if(lbx<=MainFrame.this.getWidth()-100){
                 lbx+=50;
                 lab1.setLocation(lbx,lby);
+
             }else{
-                    lbx-=100;
+                if(lbx>=MainFrame.this.getWidth()-100){
+                    tim.stop();
+                }
+            }
 
             }
 
+    });
+    tim2 = new Timer(20, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
 
-
+            if(lbx >= MainFrame.this.getWidth()-100) {
+                lbx -=  100;
+                lab1.setLocation(lbx, lby);
+                    }
+            else
+            {
+                if (lbx <= MainFrame.this.getWidth()) {
+                    tim2.stop();
+                }
+            }
         }
+
     });
 
     }
